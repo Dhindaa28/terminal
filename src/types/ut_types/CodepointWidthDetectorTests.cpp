@@ -1223,6 +1223,10 @@ static constexpr GraphemeBreakTest s_graphemeBreakTests[] = {
     //{ L"÷ [0.2] LATIN SMALL LETTER A (Other) × [9.0] DEVANAGARI SIGN VIRAMA (Extend_ConjunctLinkingScripts_ConjunctLinker_ExtCccZwj) ÷ [999.0] DEVANAGARI LETTER TA (ConjunctLinkingScripts_LinkingConsonant) ÷ [0.3]", L"a\x094D", L"\x0924" },
     //{ L"÷ [0.2] QUESTION MARK (Other) × [9.0] DEVANAGARI SIGN VIRAMA (Extend_ConjunctLinkingScripts_ConjunctLinker_ExtCccZwj) ÷ [999.0] DEVANAGARI LETTER TA (ConjunctLinkingScripts_LinkingConsonant) ÷ [0.3]", L"?\x094D", L"\x0924" },
     { L"÷ [0.2] DEVANAGARI LETTER KA (ConjunctLinkingScripts_LinkingConsonant) × [9.0] DEVANAGARI SIGN VIRAMA (Extend_ConjunctLinkingScripts_ConjunctLinker_ExtCccZwj) × [9.0] DEVANAGARI SIGN VIRAMA (Extend_ConjunctLinkingScripts_ConjunctLinker_ExtCccZwj) × [9.3] DEVANAGARI LETTER TA (ConjunctLinkingScripts_LinkingConsonant) ÷ [0.3]", L"\x0915\x094D\x094D\x0924" },
+
+    // These are additional cases which the official break tests don't cover:
+    { L"multiple combining marks", L"a\u0363", L"e\u0364\u0364", L"i\u0365" },
+    { L"multiple US flag regional indicators", L"\U0001F1FA\U0001F1F8", L"\U0001F1FA\U0001F1F8" },
 };
 
 class CodepointWidthDetectorTests
@@ -1281,69 +1285,5 @@ class CodepointWidthDetectorTests
             std::reverse(actual.begin(), actual.end());
             VERIFY_ARE_EQUAL(expected, actual, test.comment);
         }
-    }
-
-    TEST_METHOD(BasicGraphemes)
-    {
-        if constexpr (!Feature_Graphemes::IsEnabled())
-        {
-            return;
-        }
-
-        static constexpr std::wstring_view text{ L"a\u0363e\u0364\u0364i\u0365" };
-
-        auto& cwd = CodepointWidthDetector::Singleton();
-
-        const std::vector<size_t> expectedAdvances{ 2, 3, 2 };
-        const std::vector<int> expectedWidths{ 1, 1, 1 };
-        std::vector<size_t> actualAdvances;
-        std::vector<int> actualWidths;
-
-        for (size_t beg = 0; beg < text.size();)
-        {
-            int width;
-            const auto end = cwd.GraphemeNext(text, beg, &width);
-            actualAdvances.emplace_back(end - beg);
-            actualWidths.emplace_back(width);
-            beg = end;
-        }
-
-        VERIFY_ARE_EQUAL(expectedAdvances, actualAdvances);
-        VERIFY_ARE_EQUAL(expectedWidths, actualWidths);
-
-        actualAdvances.clear();
-        actualWidths.clear();
-
-        for (size_t end = text.size(); end > 0;)
-        {
-            int width;
-            const auto beg = cwd.GraphemePrev(text, end, &width);
-            actualAdvances.emplace_back(end - beg);
-            actualWidths.emplace_back(width);
-            end = beg;
-        }
-
-        std::reverse(actualAdvances.begin(), actualAdvances.end());
-        std::reverse(actualWidths.begin(), actualWidths.end());
-
-        VERIFY_ARE_EQUAL(expectedAdvances, actualAdvances);
-        VERIFY_ARE_EQUAL(expectedWidths, actualWidths);
-    }
-
-    TEST_METHOD(DevanagariConjunctLinker)
-    {
-        if constexpr (!Feature_Graphemes::IsEnabled())
-        {
-            return;
-        }
-
-        static constexpr std::wstring_view text{ L"\u0915\u094D\u094D\u0924" };
-
-        auto& cwd = CodepointWidthDetector::Singleton();
-
-        int width;
-        const auto end = cwd.GraphemeNext(text, 0, &width);
-        VERIFY_ARE_EQUAL(4u, end);
-        VERIFY_ARE_EQUAL(2, width);
     }
 };
