@@ -184,9 +184,6 @@
   <data name="Quit" xml:space="preserve">
     <value>終了</value>
   </data>
-  <data name="CloseWindowWarningTitle" xml:space="preserve">
-    <value>すべてのタブを閉じますか?</value>
-  </data>
   <data name="MultiplePanes" xml:space="preserve">
     <value>複数ウィンドウ</value>
   </data>

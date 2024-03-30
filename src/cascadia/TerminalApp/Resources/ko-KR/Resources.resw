@@ -183,9 +183,6 @@
   <data name="Quit" xml:space="preserve">
     <value>끝내기</value>
   </data>
-  <data name="CloseWindowWarningTitle" xml:space="preserve">
-    <value>모든 탭을 닫으시겠습니까?</value>
-  </data>
   <data name="MultiplePanes" xml:space="preserve">
     <value>여러 창</value>
   </data>

@@ -183,9 +183,6 @@
   <data name="Quit" xml:space="preserve">
     <value>退出</value>
   </data>
-  <data name="CloseWindowWarningTitle" xml:space="preserve">
-    <value>是否要关闭所有标签页?</value>
-  </data>
   <data name="MultiplePanes" xml:space="preserve">
     <value>多个窗格</value>
   </data>

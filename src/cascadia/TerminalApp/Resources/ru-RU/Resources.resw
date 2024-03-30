@@ -183,9 +183,6 @@
   <data name="Quit" xml:space="preserve">
     <value>Выход</value>
   </data>
-  <data name="CloseWindowWarningTitle" xml:space="preserve">
-    <value>Закрыть все вкладки?</value>
-  </data>
   <data name="MultiplePanes" xml:space="preserve">
     <value>Несколько областей</value>
   </data>

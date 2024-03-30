@@ -183,9 +183,6 @@
   <data name="Quit" xml:space="preserve">
     <value>Esci</value>
   </data>
-  <data name="CloseWindowWarningTitle" xml:space="preserve">
-    <value>Vuoi chiudere tutte le schede?</value>
-  </data>
   <data name="MultiplePanes" xml:space="preserve">
     <value>Più riquadri</value>
   </data>

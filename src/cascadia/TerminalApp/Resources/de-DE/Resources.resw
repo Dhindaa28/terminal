@@ -186,9 +186,6 @@
   <data name="Quit" xml:space="preserve">
     <value>Beenden</value>
   </data>
-  <data name="CloseWindowWarningTitle" xml:space="preserve">
-    <value>Möchten Sie alle Registerkarten schließen?</value>
-  </data>
   <data name="MultiplePanes" xml:space="preserve">
     <value>Mehrere Bereiche</value>
   </data>

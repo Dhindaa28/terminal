@@ -183,9 +183,6 @@
   <data name="Quit" xml:space="preserve">
     <value>Quitter</value>
   </data>
-  <data name="CloseWindowWarningTitle" xml:space="preserve">
-    <value>Voulez-vous fermer tous les onglets ?</value>
-  </data>
   <data name="MultiplePanes" xml:space="preserve">
     <value>Volets multiples</value>
   </data>
